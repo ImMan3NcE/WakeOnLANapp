@@ -20,13 +20,22 @@ namespace WakeOnLAN.Repositories
             connection.CreateTable<Address>();
         }
 
-        public void Add(Address newAddress)
+        public void AddOrUpdate(Address address)
         {
             int result = 0;
             try
             {
-                result=connection.Insert(newAddress);
-                StatusMessage = $"{result} rows added";
+                if(address.IdAddress != 0)
+                {
+                    result = connection.Update(address);
+                    StatusMessage = $"{result} rows updated";
+                }
+                else
+                {
+                    result = connection.Insert(address);
+                    StatusMessage = $"{result} rows added";
+                }
+                
             }
             catch (Exception ex)
             {
@@ -34,6 +43,51 @@ namespace WakeOnLAN.Repositories
                 StatusMessage = $"Error: {ex.Message}"; ;
             }
         }
+
+
+        public List<Address> GetAllAdresses()
+        {
+            try
+            {
+                return connection.Query<Address>("SELECT * FROM ConnectionAddress").ToList();
+            }
+            catch (Exception ex)
+            {
+
+                StatusMessage = $"Error: {ex.Message}"; 
+            }
+            return null;
+        }
+
+        public Address GetOneAddress(int id)
+        {
+            try
+            {
+                return connection.Table<Address>().FirstOrDefault(x => x.IdAddress == id);
+            }
+            catch (Exception ex)
+            {
+
+                StatusMessage = $"Error: {ex.Message}";
+            }
+            return null;
+        }
+
+        public void DeleteAddress(int id)
+        {
+            try
+            {
+                var address = GetOneAddress(id);
+                connection.Delete(address);
+            }
+            catch (Exception ex)
+            {
+
+                StatusMessage = $"Error: {ex.Message}";
+            }
+        }
+
+
 
     }
 }
