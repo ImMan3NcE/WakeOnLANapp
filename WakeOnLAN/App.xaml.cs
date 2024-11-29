@@ -1,4 +1,5 @@
-﻿using WakeOnLAN.Repositories;
+﻿using WakeOnLAN.MVVM.Views;
+using WakeOnLAN.Repositories;
 
 namespace WakeOnLAN
 {
@@ -13,7 +14,7 @@ namespace WakeOnLAN
 
             BaseRepo = repo;
 
-            MainPage = new AppShell();
+            MainPage = new NewAddressesView();
         }
     }
 }
