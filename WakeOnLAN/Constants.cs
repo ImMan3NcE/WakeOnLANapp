@@ -9,10 +9,12 @@ namespace WakeOnLAN
 {
     public static class Constants
     {
-        private const string DBFileName = "SQLite.db3";
+        private const string DBFileName = "Base.db3";
 
 
-        public const SQLiteOpenFlags Flags = SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.SharedCache;
+        public const SQLiteOpenFlags Flags = SQLiteOpenFlags.ReadWrite | 
+            SQLiteOpenFlags.Create | 
+            SQLiteOpenFlags.SharedCache;
 
 
         public static string DatabasePath

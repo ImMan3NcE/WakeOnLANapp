@@ -5,9 +5,9 @@
              Title="NewAddressesView">
     <Grid RowDefinitions=".2*,.8*">
         <VerticalStackLayout>
-            
+            <Button Text="Refresh" Command="{Binding RefreshCommand}"/>
         </VerticalStackLayout>
-        <CollectionView Grid.Row="1">
+        <CollectionView Grid.Row="1" ItemsSource="{Binding TempAddresses}">
             
         </CollectionView>
     </Grid>

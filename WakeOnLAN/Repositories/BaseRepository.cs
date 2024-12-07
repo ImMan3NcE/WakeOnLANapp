@@ -18,7 +18,10 @@ namespace WakeOnLAN.Repositories
         {
             connection = new SQLiteConnection(Constants.DatabasePath, Constants.Flags);
             connection.CreateTable<Address>();
+            connection.CreateTable<TempAddress>();
         }
+
+
 
         public void AddOrUpdate(Address address)
         {
@@ -87,7 +90,19 @@ namespace WakeOnLAN.Repositories
             }
         }
 
+        public List<TempAddress> GetAllTempAdresses()
+        {
+            try
+            {
+                return connection.Query<TempAddress>("SELECT * FROM ConnectionTempAddress").ToList();
+            }
+            catch (Exception ex)
+            {
 
+                StatusMessage = $"Error: {ex.Message}";
+            }
+            return null;
+        }
 
     }
 }
